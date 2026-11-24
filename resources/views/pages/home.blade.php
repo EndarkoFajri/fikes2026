@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Full Width Hero Banner Section -->
-<section class="relative w-full min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden">
+<section class="relative w-full min-h-145 lg:min-h-160 flex items-center overflow-hidden">
     <!-- Gambar Background Full Width -->
     <div class="absolute inset-0 z-0">
         <img src="images/fikes2.png" 
@@ -387,100 +387,120 @@
             </div>
             </div>
 
-        <!-- Kolase Grid Asimetris -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-[160px] sm:auto-rows-[190px] md:auto-rows-[220px]">
-            
-            <!-- Item 1: Besar Kiri (Span 2 Kolom, 2 Baris) -->
-            <div class="relative group col-span-2 row-span-2 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80'; activeCaption = 'Praktik Simulasi Klinis Keperawatan'">
-                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" 
-                     alt="Praktik Simulasi Klinis" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <!-- Overlay Merah Maroon saat Hover -->
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-white text-center">
-                    <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-2 transform scale-75 group-hover:scale-100 transition-transform">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+  <section class="w-full relative overflow-hidden bg-white py-10 sm:py-12" x-data="{ modalOpen: false, activeImage: '', activeCaption: '' }">
+    <!-- Kontainer Lebar Rapi -->
+    <div class="w-full max-w-7xl xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Grid 2 Kolom Mandiri (Kiri & Kanan) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 w-full items-start">
+
+            <!-- ================= SISI KIRI ================= -->
+            <div class="flex flex-col gap-4 sm:gap-5 w-full">
+                
+                <!-- Slot 1: Foto Besar Kiri Atas (foto 1) -->
+                @if(isset($galeri[0]))
+                    <div class="relative group w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-sm cursor-pointer bg-gray-100"
+                         @click="modalOpen = true; activeImage = '{{ asset('storage/' . $galeri[0]->foto) }}'; activeCaption = '{{ $galeri[0]->judul }}'">
+                        <img src="{{ asset('storage/' . $galeri[0]->foto) }}" 
+                             alt="{{ $galeri[0]->judul }}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-white text-center">
+                            <svg class="w-7 h-7 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                            <span class="text-sm font-bold tracking-wide">{{ $galeri[0]->judul }}</span>
+                            <span class="text-[10px] text-white/80 mt-0.5">Klik untuk memperbesar</span>
+                        </div>
                     </div>
-                    <span class="text-xs sm:text-sm font-bold tracking-wide">Praktik Simulasi Klinis</span>
-                    <span class="text-[10px] text-white/80 mt-0.5">Klik untuk memperbesar</span>
+                @endif
+
+                <!-- Baris Kiri Bawah: 2 Foto Berdampingan -->
+                <div class="grid grid-cols-2 gap-4 sm:gap-5 w-full">
+                    
+                    <!-- Slot 4: Pelepasan Delegasi -->
+                    @if(isset($galeri[3]))
+                        <div class="relative group w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm cursor-pointer bg-gray-100"
+                             @click="modalOpen = true; activeImage = '{{ asset('storage/' . $galeri[3]->foto) }}'; activeCaption = '{{ $galeri[3]->judul }}'">
+                            <img src="{{ asset('storage/' . $galeri[3]->foto) }}" 
+                                 alt="{{ $galeri[3]->judul }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white text-xs font-bold text-center px-2">
+                                {{ $galeri[3]->judul }}
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Slot 5: Banner Tenang -->
+                    @if(isset($galeri[4]))
+                        <div class="relative group w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm cursor-pointer bg-gray-100"
+                             @click="modalOpen = true; activeImage = '{{ asset('storage/' . $galeri[4]->foto) }}'; activeCaption = '{{ $galeri[4]->judul }}'">
+                            <img src="{{ asset('storage/' . $galeri[4]->foto) }}" 
+                                 alt="{{ $galeri[4]->judul }}" 
+                                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white text-xs font-bold text-center px-2">
+                                {{ $galeri[4]->judul }}
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
 
-            <!-- Item 2: Landscape Atas Tengah (Span 2 Kolom) -->
-            <div class="relative group col-span-2 row-span-1 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'; activeCaption = 'Fasilitas Laboratorium & Diskusi Medis'">
-                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
-                     alt="Diskusi Medis" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-white text-center">
-                    <svg class="w-6 h-6 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                    <span class="text-xs font-bold">Laboratorium & Diskusi Kasus Medis</span>
-                </div>
-            </div>
+            <!-- ================= SISI KANAN ================= -->
+            <div class="flex flex-col gap-4 sm:gap-5 w-full">
+                
+                <!-- Baris Kanan Atas: 2 Foto Berdampingan (Wisuda VI) -->
+                <div class="grid grid-cols-2 gap-4 sm:gap-5 w-full">
+                    
+                    <!-- Slot 2: Wisuda VI Kiri -->
+                    @if(isset($galeri[1]))
+                        <div class="relative group w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm cursor-pointer bg-gray-100"
+                             @click="modalOpen = true; activeImage = '{{ asset('storage/' . $galeri[1]->foto) }}'; activeCaption = '{{ $galeri[1]->judul }}'">
+                            <img src="{{ asset('storage/' . $galeri[1]->foto) }}" 
+                                 alt="{{ $galeri[1]->judul }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white text-xs font-bold text-center px-2">
+                                {{ $galeri[1]->judul }}
+                            </div>
+                        </div>
+                    @endif
 
-            <!-- Item 3: Kotak Reguler 1 -->
-            <div class="relative group col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=1000&q=80'; activeCaption = 'Pemeriksaan Kesehatan Komprehensif'">
-                <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=500&q=80" 
-                     alt="Pemeriksaan Kesehatan" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-3 text-white text-center">
-                    <svg class="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                    <span class="text-[11px] font-bold">Pemeriksaan Pasien</span>
-                </div>
-            </div>
+                    <!-- Slot 3: Wisuda VI Kanan -->
+                    @if(isset($galeri[2]))
+                        <div class="relative group w-full aspect-4/3 rounded-2xl overflow-hidden shadow-sm cursor-pointer bg-gray-100"
+                             @click="modalOpen = true; activeImage = '{{ asset('storage/' . $galeri[2]->foto) }}'; activeCaption = '{{ $galeri[2]->judul }}'">
+                            <img src="{{ asset('storage/' . $galeri[2]->foto) }}" 
+                                 alt="{{ $galeri[2]->judul }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white text-xs font-bold text-center px-2">
+                                {{ $galeri[2]->judul }}
+                            </div>
+                        </div>
+                    @endif
 
-            <!-- Item 4: Kotak Reguler 2 -->
-            <div class="relative group col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1000&q=80'; activeCaption = 'Bimbingan Akademik & Praktek Lapangan'">
-                <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=500&q=80" 
-                     alt="Bimbingan Mahasiswa" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-3 text-white text-center">
-                    <svg class="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                    <span class="text-[11px] font-bold">Bimbingan Klinik</span>
                 </div>
-            </div>
 
-            <!-- Item 5: Kotak Reguler Bawah 1 -->
-            <div class="relative group col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=1000&q=80'; activeCaption = 'Kegiatan Riset Farmasi & Farmakologi'">
-                <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=500&q=80" 
-                     alt="Riset Farmasi" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-3 text-white text-center">
-                    <svg class="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                    <span class="text-[11px] font-bold">Riset Farmasi</span>
-                </div>
-            </div>
-       <div class="relative group col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=1000&q=80'; activeCaption = 'Kegiatan Riset Farmasi & Farmakologi'">
-                <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=500&q=80" 
-                     alt="Riset Farmasi" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-3 text-white text-center">
-                    <svg class="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                    <span class="text-[11px] font-bold">Riset Farmasi</span>
-                </div>
-            </div>
-        
-                 <!-- Item 7: Span 2 Kolom Bawah Kanan -->
-            <div class="relative group col-span-2 row-span-1 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-                 @click="modalOpen = true; activeImage = 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=1200&q=80'; activeCaption = 'Pengabdian Masyarakat & Edukasi Kesehatan'">
-                <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=800&q=80" 
-                     alt="Pengabdian Masyarakat" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-white text-center">
-                    <svg class="w-6 h-6 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                    <span class="text-xs font-bold">Edukasi & Pengabdian Komunitas</span>
-                </div>
+                <!-- Slot 6: Foto Besar Kanan Bawah (Siluet - Melebar & Naik Penuh ke Atas) -->
+                @if(isset($galeri[5]))
+                    <div class="relative group w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-sm cursor-pointer bg-gray-100"
+                         @click="modalOpen = true; activeImage = '{{ asset('storage/' . $galeri[5]->foto) }}'; activeCaption = '{{ $galeri[5]->judul }}'">
+                        <img src="{{ asset('storage/' . $galeri[5]->foto) }}" 
+                             alt="{{ $galeri[5]->judul }}" 
+                             class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-[#7A1C28]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-white text-center">
+                            <svg class="w-7 h-7 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                            <span class="text-sm font-bold tracking-wide">{{ $galeri[5]->judul }}</span>
+                            <span class="text-[10px] text-white/80 mt-0.5">Klik untuk memperbesar</span>
+                        </div>
+                    </div>
+                @endif
+
             </div>
 
         </div>
     </div>
 
-    <!-- Lightbox Modal (Muncul saat foto diklik) -->
+    <!-- Lightbox Modal Popup -->
     <div x-show="modalOpen" 
+         x-cloak
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
@@ -491,17 +511,16 @@
          style="display: none;"
          @keydown.escape.window="modalOpen = false">
         
-        <!-- Tombol Tutup Silang di Kanan Atas -->
-        <button @click="modalOpen = false" class="absolute top-5 right-5 sm:top-8 sm:right-8 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50">
+        <button type="button" @click="modalOpen = false" class="absolute top-5 right-5 sm:top-8 sm:right-8 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
 
-        <!-- Area Konten Gambar Pop-up -->
         <div class="relative max-w-5xl w-full max-h-[85vh] flex flex-col items-center justify-center" @click.outside="modalOpen = false">
             <img :src="activeImage" :alt="activeCaption" class="max-h-[75vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain border border-white/10">
             <p class="text-white font-medium text-sm sm:text-base mt-4 text-center tracking-wide" x-text="activeCaption"></p>
         </div>
     </div>
+</section>
 </section> 
 <!-- Section Profil Kampus / Kuliah di UDS -->
 <section class="w-full bg-[#f8fafc] py-16 sm:py-20 border-t border-gray-100">

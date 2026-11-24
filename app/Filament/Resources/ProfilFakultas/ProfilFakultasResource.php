@@ -24,8 +24,8 @@ use UnitEnum;
 class ProfilFakultasResource extends Resource
 {
     protected static ?string $model = ProfilFakultas::class;
-      protected static string|UnitEnum|null $navigationGroup = 'Fakultas';
-protected static ?int $navigationSort = 3;
+      protected static string|UnitEnum|null $navigationGroup = 'PROFIL';
+    protected static ?int $navigationSort = 3;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
